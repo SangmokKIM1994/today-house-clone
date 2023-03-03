@@ -1,3 +1,3 @@
 module.exports = {
-  Databaseerror: require("./Database.error"),
+  makeError: require("./error"),
 };
