@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      rice: {
+      price: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -67,11 +67,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       commentsCount: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        // defaulteValue: 0
       },
       likesCount: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        // defaulteValue: 0
       },
       createdAt: {
         allowNull: false,
