@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Comments extends Model {
     /**
@@ -21,42 +19,45 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Comments.init({
-    commentId: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER,
+  Comments.init(
+    {
+      commentId: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      goodsId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      userId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      nickName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      comment: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
     },
-    goodsId: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-    },
-    userId: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-    },
-    nickName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    comment: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-  }, {
-    sequelize,
-    modelName: 'Comments',
-  });
+    {
+      sequelize,
+      modelName: "Comments",
+    }
+  );
   return Comments;
 };

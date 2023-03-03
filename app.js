@@ -20,13 +20,12 @@ app.use(cookieparser());
 
 app.use("/api", router);
 
-
 app.use((error, req, res, next) => {
-    return res.status(error.code||500).json({ message: error.message || "서버 에러."});
+  return res
+    .status(error.code || 500)
+    .json({ message: error.message || "서버 에러." });
 });
 
 app.listen(PORT, () => {
   console.log(PORT, "포트로 서버가 열렸어요!");
 });
-
-
