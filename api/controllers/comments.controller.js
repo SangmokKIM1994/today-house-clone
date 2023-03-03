@@ -1,10 +1,8 @@
-const { error } = require("../error/error.js");
 const CommentsService = require("../services/comments.service.js");
 
 class CommentsController {
   //댓글 작성
   createComment = async (req, res, next) => {
-    const { userId } = res.locals.user;
     const { postId } = req.params;
     const { comment } = req.body;
 

@@ -1,4 +1,3 @@
-const { error } = require("../error/error.js");
 const CommentsRepository = require("../repositories/comments.repositories.js");
 const PostsRepository = require("../repositories/posts.repositories.js");
 
