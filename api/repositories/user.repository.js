@@ -3,7 +3,6 @@ class UsersRepository {
   constructor() {}
 
   signupRepo = async ({ email, password, nickname }) => {
-    await Users.findOne({});
     const signupUser = await Users.create({
       email,
       password,
@@ -19,6 +18,14 @@ class UsersRepository {
     });
 
     return loginUser;
+  };
+
+  nickNameRepo = async ({ nickname }) => {
+    const nickNameUser = await Users.findOne({
+      where: { nickName: nickname },
+    });
+
+    return nickNameUser;
   };
 }
 
