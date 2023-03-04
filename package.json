@@ -18,6 +18,7 @@
   "homepage": "https://github.com/SangmokKIM1994/community-server#readme",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.281.0",
+    "aws-sdk": "^2.1328.0",
     "bcrypt": "^5.1.0",
     "bucket": "^0.0.1",
     "cookie-parser": "^1.4.6",
