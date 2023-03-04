@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const JoiHelper = require("../helpers/joy.helper");
+const JoiHelper = require("../helpers/joi.helper");
 const Userscontroller = require("../controllers/user.controller");
 const usersController = new Userscontroller();
 
