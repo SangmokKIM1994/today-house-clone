@@ -1,7 +1,7 @@
-const CommentsRepository = require("../repositories/comments.repositories.js");
-const PostsRepository = require("../repositories/posts.repositories.js");
+const CommentsRepository = require("../repositories/comments.repository");
 
 class CommentsService {
+  commentsRepository = new CommentsRepository();
   //댓글 작성
   createComment = async ({ userId, postId, comment }) => {
     const result = await this.CommentsRepository.createComment({

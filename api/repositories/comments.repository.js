@@ -1,5 +1,4 @@
-const { error } = require("../error/error.js");
-const { Comments, Users } = require("../../db/models");
+const { Comments } = require("../../db/models");
 
 class CommentsRepository {
   //댓글 작성

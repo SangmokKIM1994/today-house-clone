@@ -1,6 +1,7 @@
 const CommentsService = require("../services/comments.service.js");
 
 class CommentsController {
+  commentsService = new CommentsService();
   //댓글 작성
   createComment = async (req, res, next) => {
     const { postId } = req.params;

@@ -1,4 +1,4 @@
-const express = require("exress");
+const express = require("express");
 const router = express.Router();
 
 const CommentsController = require("../controllers/comments.controller.js");
