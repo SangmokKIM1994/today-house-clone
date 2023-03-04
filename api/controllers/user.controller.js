@@ -1,6 +1,5 @@
 const UsersService = require("../services/user.service");
 const jwt = require("jsonwebtoken");
-const { Users } = require("../../db/models");
 require("dotenv").config();
 const { KEY } = process.env;
 
@@ -42,7 +41,7 @@ class UsersController {
     });
     res.status(200).json({
       message: "로그인에 성공하셨습니다.",
-      Authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     });
   };
 }
