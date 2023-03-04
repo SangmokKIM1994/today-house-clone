@@ -2,6 +2,7 @@ const { Users, Comments, Goods, Likes, sequelize } = require("../../db/models");
 
 class PostsRepository {
   createGoods = async (
+    userId,
     name,
     content,
     price,
@@ -10,7 +11,6 @@ class PostsRepository {
     fileName,
     fileUrl
   ) => {
-    const userId = 2;
     const createGoodsData = await Goods.create({
       userId,
       name,
@@ -45,6 +45,7 @@ class PostsRepository {
         "content",
         "price",
         "option",
+        "category",
         "likesCount",
         "commentsCount",
         "createdAt",
@@ -57,8 +58,11 @@ class PostsRepository {
     return goodsData;
   };
 
-  editGoods = async (goodsId, name, content) => {
-    await Goods.update({ name, content }, { where: { goodsId } });
+  editGoods = async (goodsId, name, content, price, category, option) => {
+    await Goods.update(
+      { name, content, price, category, option },
+      { where: { goodsId } }
+    );
     return;
   };
 
