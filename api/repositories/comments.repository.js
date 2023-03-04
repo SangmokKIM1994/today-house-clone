@@ -1,39 +1,41 @@
 const { Comments } = require("../../db/models");
+const UsersController = require("../controllers/user.controller");
 
 class CommentsRepository {
   //댓글 작성
-  createComment = async ({ userId, postId, comment }) => {
+  createComment = async ({ userId, goodsId, comment }) => {
     const post = await Comments.create({
       userId,
-      postId,
+      goodsId,
       comment,
     });
     return post;
   };
 
   //댓글 조회
-  getComments = async ({ postId }) => {
+  getComments = async ({ goodsId }) => {
     const comments = await this.Comments.findAll({
-      attributes: [
-        "nickName",
-        "commentId",
-        "comment",
-        "createdAt",
-        "updatedAt",
-      ],
+      where: { goodsId },
+      attributes: ["userId", "commentId", "comment", "createdAt", "updatedAt"],
+      include: { model: Users, attributes: ["nickname"] },
+      order: [["createdAt", "DESC"]],
+      raw: true,
     });
     return comments;
   };
 
   //댓글 수정
-  editComments = async ({ commentId, comment }) => {
-    const edit = await Comments.update({ comment }, { where: { commentId } });
+  editComments = async ({ userId, commentId, comment }) => {
+    const edit = await Comments.update(
+      { comment },
+      { where: { userId, commentId } }
+    );
     return edit;
   };
 
   //댓글 삭제
-  deleteComment = async ({ commentId }) => {
-    const deleted = await Comments.destroy({ where: { commentId } });
+  deleteComment = async ({ commentId, userId }) => {
+    const deleted = await Comments.destroy({ where: { commentId, userId } });
     return deleted;
   };
 }
