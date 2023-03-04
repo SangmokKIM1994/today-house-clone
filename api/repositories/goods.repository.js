@@ -1,8 +1,16 @@
 const { Users, Comments, Goods, Likes, sequelize } = require("../../db/models");
 
 class PostsRepository {
-  createGoods = async (name, content, price, category, option) => {
-    const userId = 1;
+  createGoods = async (
+    name,
+    content,
+    price,
+    category,
+    option,
+    fileName,
+    fileUrl
+  ) => {
+    const userId = 2;
     const createGoodsData = await Goods.create({
       userId,
       name,
@@ -10,6 +18,8 @@ class PostsRepository {
       price,
       category,
       option,
+      fileName,
+      fileUrl,
     });
 
     return createGoodsData;

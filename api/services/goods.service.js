@@ -4,13 +4,14 @@ const { makeError } = require("../error");
 class GoodsService {
   goodsRepository = new GoodsRepository();
 
-  createGoods = async (name, content, price, category, option) => {
+  createGoods = async (name, content, price, category, option, ...file) => {
     const createGoodsData = await this.goodsRepository.createGoods(
       name,
       content,
       price,
       category,
-      option
+      option,
+      ...file
     );
     if (!createGoodsData) {
       throw new makeError({
