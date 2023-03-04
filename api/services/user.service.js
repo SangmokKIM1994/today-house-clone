@@ -14,7 +14,7 @@ class UsersService {
     });
 
     const re_email =
-      /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+).(\.[0-9a-zA-Z_-]+){1,}$/;
+      /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+).(\.[0-9a-zA-Z_-]+){1,3}$/;
     const re_nickname = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]){2,15}$/;
     const re_password = /^[a-zA-Z0-9]{8,}$/;
 
@@ -71,7 +71,7 @@ class UsersService {
     const isExistUser = await this.usersRepository.loginRepo({ email });
 
     const re_email =
-      /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+).(\.[0-9a-zA-Z_-]+){1,}$/;
+      /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+).(\.[0-9a-zA-Z_-]+){1,3}$/;
     const re_password = /^[a-zA-Z0-9]{8,}$/;
 
     if (!isExistUser) {
