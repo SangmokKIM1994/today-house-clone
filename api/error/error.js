@@ -1,4 +1,4 @@
-module.exports = class Error extends Error {
+module.exports = class makeError extends Error {
   constructor({ message, code }) {
     super();
     this.message = message;

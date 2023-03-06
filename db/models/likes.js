@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      postId: {
+      goodsId: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
