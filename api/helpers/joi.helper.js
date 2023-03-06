@@ -8,28 +8,35 @@ const JoiHelper = {
       email: Joi.string()
         .email()
         .required()
-        .error(new makeError("email 형식에 맞춰서 입력 바랍니다.")),
+        .error(
+          new makeError({
+            message: "email 형식에 맞춰서 입력 바랍니다.",
+            code: 400,
+          })
+        ),
 
       nickname: Joi.string()
         .required()
         .regex(/^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]){2,15}$/)
         .error(
-          new makeError("닉네임은 특수문자 제외 2~15자만 입력이 가능합니다.")
+          new makeError({
+            message: "닉네임은 특수문자 제외 2~15자만 입력이 가능합니다.",
+            code: 400,
+          })
         ),
 
       password: Joi.string()
         .required()
         .regex(/^[a-zA-Z0-9]{8,}$/)
         .error(
-          new makeError("비밀번호는 영문, 숫자를 포함한 8자리 이상 조합입니다.")
+          new makeError({
+            message: "비밀번호는 영문, 숫자를 포함한 8자리 이상 조합입니다.",
+            code: 400,
+          })
         ),
 
-      confirm: Joi.string()
-        .required()
-        .Joi.ref("password")
-        .error(new makeError("비밀번호 확인이 일치하지 않습니다.")),
+      confirm: Joi.ref("password"),
     });
-
     try {
       await check.validateAsync(req.body);
     } catch (error) {
@@ -40,17 +47,24 @@ const JoiHelper = {
 
   loginCheck: async (req, res, next) => {
     const check = Joi.object().keys({
-      email: Joi.String()
+      email: Joi.string()
         .required()
         .email()
-        .error(new makeError("email 형식에 맞춰서 입력 바랍니다.")),
+        .error(
+          new makeError({
+            message: "email 형식에 맞춰서 입력 바랍니다.",
+            code: 400,
+          })
+        ),
 
-      password: Joi.String()
+      password: Joi.string()
         .required()
         .regex(/^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]){2,15}$/)
-        .error("비밀번호는 영문, 숫자를 포함한 8자리 이상 조합입니다."),
+        .error({
+          message: "비밀번호는 영문, 숫자를 포함한 8자리 이상 조합입니다.",
+          code: 400,
+        }),
     });
-
     try {
       await check.validateAsync(req.body);
     } catch (error) {
@@ -65,7 +79,9 @@ const JoiHelper = {
     const check = Joi.object.key({
       goodsId: Joi.number()
         .required()
-        .error(new makeError("게시물을 조회할 수 없습니다.")),
+        .error(
+          new makeError({ message: "게시물을 조회할 수 없습니다.", code: 400 })
+        ),
     });
     try {
       await check.validateAsync(req.params);
@@ -81,7 +97,9 @@ const JoiHelper = {
     const check = Joi.object.key({
       commentId: Joi.number()
         .required()
-        .error(new makeError("댓글을 조회할 수 없습니다.")),
+        .error(
+          new makeError({ message: "댓글을 조회할 수 없습니다.", code: 400 })
+        ),
     });
     try {
       await check.validateAsync(req.params);
