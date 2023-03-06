@@ -1,6 +1,6 @@
 const { Users, Comments, Goods, Likes, sequelize } = require("../../db/models");
 
-class PostsRepository {
+class GoodsRepository {
   createGoods = async (
     userId,
     name,
@@ -71,5 +71,4 @@ class PostsRepository {
     return;
   };
 }
-
-module.exports = PostsRepository;
+module.exports = GoodsRepository;
