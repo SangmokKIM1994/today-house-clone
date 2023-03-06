@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-
+const JoiHelper = require("../helpers/joi.helper");
 const Userscontroller = require("../controllers/user.controller");
 const usersController = new Userscontroller();
 
-router.post("/signup", usersController.signupController);
-router.post("/login", usersController.loginController);
+router.post("/signup", JoiHelper.signUpCheck, usersController.signupController);
+router.post("/login", JoiHelper.loginCheck, usersController.loginController);
 
 module.exports = router;

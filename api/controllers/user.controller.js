@@ -9,12 +9,11 @@ class UsersController {
   }
   //회원가입
   signupController = async (req, res, next) => {
-    const { email, password, confirm, nickname } = req.body;
+    const { email, password, nickname } = req.body;
     try {
       await this.usersService.signupService({
         email,
         password,
-        confirm,
         nickname,
       });
 
@@ -35,7 +34,7 @@ class UsersController {
 
       const token = jwt.sign({ userId: user.email }, KEY, { expiresIn: "1h" });
 
-      res.cookie("authorization", `Bearer=${token}`, {
+      res.cookie("authorization", `Bearer ${token}`, {
         expires: expires,
       });
       res.status(200).json({
