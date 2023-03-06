@@ -58,6 +58,38 @@ const JoiHelper = {
     }
     next();
   },
+
+  //Goods
+
+  gooodsCheck: async (req, res, next) => {
+    const check = Joi.object.key({
+      goodsId: Joi.number()
+        .required()
+        .error(new makeError("게시물을 조회할 수 없습니다.")),
+    });
+    try {
+      await check.validateAsync(req.params);
+    } catch (error) {
+      next(error);
+    }
+    next();
+  },
+
+  //Comment
+
+  commentCheck: async (req, res, next) => {
+    const check = Joi.object.key({
+      commentId: Joi.number()
+        .required()
+        .error(new makeError("댓글을 조회할 수 없습니다.")),
+    });
+    try {
+      await check.validateAsync(req.params);
+    } catch (error) {
+      next(error);
+    }
+    next();
+  },
 };
 
 module.exports = JoiHelper;
