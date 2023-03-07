@@ -8,8 +8,7 @@ module.exports = async (req, res, next) => {
 
   if (token) {
     const { userId } = jwt.verify(token, KEY);
-
-    const user = await Users.findOne({ where: { userId } });
+    const user = await Users.findOne({ where: { email: userId } });
 
     res.locals.user = user;
   }

@@ -1,20 +1,21 @@
-const { Comments } = require("../../db/models");
+const { Comments, Users } = require("../../db/models");
 const UsersController = require("../controllers/user.controller");
 
 class CommentsRepository {
   //댓글 작성
-  createComment = async ({ userId, goodsId, comment }) => {
+  createComment = async ({ userId, goodsId, comment, nickName }) => {
     const post = await Comments.create({
       userId,
       goodsId,
       comment,
+      nickName,
     });
     return post;
   };
 
   //댓글 조회
   getComments = async ({ goodsId }) => {
-    const comments = await this.Comments.findAll({
+    const comments = await Comments.findAll({
       where: { goodsId },
       attributes: ["userId", "commentId", "comment", "createdAt", "updatedAt"],
       include: { model: Users, attributes: ["nickname"] },
