@@ -18,7 +18,7 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      name: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -26,31 +26,35 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      fileUrl: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      fileName: {
-        type: Sequelize.STRING,
+      src: {
+        type: Sequelize.JSON,
         allowNull: true,
       },
       price: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      category: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      freeDilivery: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      specialPrice: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       option: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      commentsCount: {
+      review: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      likesCount: {
+      star: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      percentSale: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

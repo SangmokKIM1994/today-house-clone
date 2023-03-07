@@ -5,30 +5,42 @@ class GoodsController {
 
   createGoods = async (req, res, next) => {
     const { userId } = res.locals.user;
-    const { name, content, price, category, option } = req.body;
-
+    const {
+      title,
+      content,
+      price,
+      option,
+      freeDilivery,
+      specialPrice,
+      percentSale,
+    } = req.body;
     try {
-      if (req.file) {
-        const filiName = req.file.key;
-        const fileUrl = req.file.location;
+      if (req.files) {
+        const fileUrl = [];
+        for (let i = 0; i < req.files.length; i++) {
+          fileUrl.push(req.files[i].location);
+        }
         await this.goodsService.createGoods(
           userId,
-          name,
+          title,
           content,
           price,
-          category,
           option,
-          filiName,
+          freeDilivery,
+          specialPrice,
+          percentSale,
           fileUrl
         );
       } else {
         await this.goodsService.createGoods(
           userId,
-          name,
+          title,
           content,
           price,
-          category,
-          option
+          option,
+          freeDilivery,
+          specialPrice,
+          percentSale
         );
       }
 
@@ -39,8 +51,9 @@ class GoodsController {
   };
 
   getAllGoods = async (req, res, next) => {
+    const { group, click } = req.query;
     try {
-      const goodsData = await this.goodsService.getAllGoods();
+      const goodsData = await this.goodsService.getAllGoods(group, click);
       res.status(200).json({ data: goodsData });
     } catch (error) {
       next(error);
@@ -64,16 +77,26 @@ class GoodsController {
   editGoods = async (req, res, next) => {
     const { userId } = res.locals.user;
     const { goodsId } = req.params;
-    const { name, content, price, category, option } = req.body;
+    const {
+      title,
+      content,
+      price,
+      option,
+      freeDilivery,
+      specialPrice,
+      percentSale,
+    } = req.body;
     try {
       await this.goodsService.editGoods(
         userId,
         goodsId,
-        name,
+        title,
         content,
         price,
-        category,
-        option
+        option,
+        freeDilivery,
+        specialPrice,
+        percentSale
       );
       res.status(200).json({ message: "게시글 수정이 완료되었습니다." });
     } catch (error) {
