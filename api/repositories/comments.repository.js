@@ -1,4 +1,4 @@
-const { Comments, Users } = require("../../db/models");
+const { Comments, Users, Goods } = require("../../db/models");
 const UsersController = require("../controllers/user.controller");
 
 class CommentsRepository {
@@ -10,6 +10,14 @@ class CommentsRepository {
       comment,
       nickName,
     });
+    console.log(post.goodsId);
+    if (post) {
+      await Goods.increment(
+        { review: +1 },
+        { where: { goodsId: post.goodsId } }
+      );
+    }
+
     return post;
   };
 
