@@ -1,37 +1,27 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Goods extends Model {
+  class Carts extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
       this.belongsTo(models.Users, {
-        targetKey: "userId",
+        sourceKey: "userId",
         foreignKey: "userId",
       });
-
-      this.hasMany(models.Comments, {
+      this.belongsTo(models.Goods, {
         sourceKey: "goodsId",
         foreignKey: "goodsId",
       });
-
-      this.hasMany(models.Likes, {
-        sourceKey: "goodsId",
-        foreignKey: "goodsId",
-      });
-      this.hasMany(models.Carts, {
-        sourceKey: "goodsId",
-        foreignKey: "goodsId",
-      });
+      // define association here
     }
   }
-  Goods.init(
+  Carts.init(
     {
-      goodsId: {
+      cartid: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -41,59 +31,35 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      name: {
-        type: DataTypes.STRING,
+      goodsId: {
         allowNull: false,
-      },
-      content: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      fileName: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      price: {
         type: DataTypes.INTEGER,
-        allowNull: false,
       },
-      category: {
-        type: DataTypes.STRING,
+      totalprice: {
         allowNull: false,
+        type: DataTypes.INTEGER,
       },
       option: {
-        type: DataTypes.STRING,
         allowNull: false,
-      },
-      fileUrl: {
         type: DataTypes.STRING,
-        allowNull: true,
       },
-      commentsCount: {
+      count: {
+        allowNull: false,
         type: DataTypes.INTEGER,
-        allowNull: true,
-        // defaulteValue: 0
-      },
-      likesCount: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        // defaulteValue: 0
       },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
       },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
       },
     },
     {
       sequelize,
-      modelName: "Goods",
+      modelName: "Carts",
     }
   );
-  return Goods;
+  return Carts;
 };
