@@ -35,9 +35,7 @@ const JoiHelper = {
           })
         ),
 
-      confirm: Joi.ref("password").error(
-        new makeError({ message: "비밀번호가 일치하지 않습니다.", code: 400 })
-      ),
+      confirm: Joi.ref("password"),
     });
     try {
       await check.validateAsync(req.body);
@@ -62,10 +60,12 @@ const JoiHelper = {
       password: Joi.string()
         .required()
         .regex(/^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]){2,15}$/)
-        .error({
-          message: "비밀번호는 영문, 숫자를 포함한 8자리 이상 조합입니다.",
-          code: 400,
-        }),
+        .error(
+          new makeError({
+            message: "비밀번호는 영문, 숫자를 포함한 8자리 이상입니다.",
+            code: 400,
+          })
+        ),
     });
     try {
       await check.validateAsync(req.body);
