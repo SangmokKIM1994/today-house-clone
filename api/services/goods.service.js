@@ -8,21 +8,25 @@ class GoodsService {
 
   createGoods = async (
     userId,
-    name,
+    title,
     content,
     price,
-    category,
     option,
-    ...file
+    freeDilivery,
+    specialPrice,
+    percentSale,
+    fileUrl
   ) => {
     const createGoodsData = await this.goodsRepository.createGoods(
       userId,
-      name,
+      title,
       content,
       price,
-      category,
       option,
-      ...file
+      freeDilivery,
+      specialPrice,
+      percentSale,
+      fileUrl
     );
     if (!createGoodsData) {
       throw new makeError({
@@ -33,7 +37,7 @@ class GoodsService {
     return createGoodsData;
   };
 
-  getAllGoods = async () => {
+  getAllGoods = async (group, click) => {
     const goodsData = await this.goodsRepository.getAllGoods();
     if (!goodsData) {
       throw new makeError({
@@ -41,7 +45,20 @@ class GoodsService {
         code: 404,
       });
     }
-    return goodsData;
+    if (!group || !click) {
+      return goodsData;
+    }
+    const end = group * click - 1;
+    const remain = goodsData.length % end;
+
+    if (goodsData.length < group) {
+      return goodsData;
+    }
+    if (remain !== 0) {
+      return goodsData.slice(0, end + remain);
+    } else {
+      return goodsData.slice(0, end);
+    }
   };
 
   getGoods = async (userId, goodsId) => {

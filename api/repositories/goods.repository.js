@@ -3,23 +3,26 @@ const { Users, Comments, Goods, Likes, sequelize } = require("../../db/models");
 class GoodsRepository {
   createGoods = async (
     userId,
-    name,
+    title,
     content,
     price,
-    category,
     option,
-    fileName,
+    freeDilivery,
+    specialPrice,
+    percentSale,
     fileUrl
   ) => {
+    console.log(typeof fileUrl);
     const createGoodsData = await Goods.create({
       userId,
-      name,
+      title,
       content,
       price,
-      category,
       option,
-      fileName,
-      fileUrl,
+      freeDilivery,
+      specialPrice,
+      percentSale,
+      src: fileUrl,
     });
 
     return createGoodsData;
@@ -27,34 +30,44 @@ class GoodsRepository {
 
   getAllGoods = async () => {
     const goodsData = await Goods.findAll({
-      attributes: ["goodsId", "name", "likesCount", "commentsCount"],
-      order: [["likesCount", "DESC"]],
+      attributes: [
+        "goodsId",
+        "title",
+        "content",
+        "src",
+        "review",
+        "star",
+        "freeDilivery",
+        "specialPrice",
+        "percentSale",
+      ],
+      order: [["content", "DESC"]],
       raw: true,
     });
 
     return goodsData;
   };
 
-  getGoods = async (goodsId) => {
+  getGoods = async (userId, goodsId) => {
     const goodsData = await Goods.findOne({
       where: { goodsId },
-      attributes: [
-        "goodsId",
-        "userId",
-        "name",
-        "content",
-        "price",
-        "option",
-        "category",
-        "likesCount",
-        "commentsCount",
-        "createdAt",
-        "updatedAt",
-      ],
+      // attributes: [
+      //   "goodsId",
+      //   "userId",
+      //   "title",
+      //   "content",
+      //   "price",
+      //   "option",
+      //   "freeDilivery",
+      //   "specialPrice",
+      //   "review",
+      //   "src",
+      //   "createdAt",
+      //   "updatedAt",
+      // ],
       include: [{ model: Users, attributes: ["nickName"] }],
       raw: true,
     });
-
     return goodsData;
   };
 
