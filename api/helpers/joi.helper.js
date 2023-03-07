@@ -35,7 +35,9 @@ const JoiHelper = {
           })
         ),
 
-      confirm: Joi.ref("password"),
+      confirm: Joi.ref("password").error(
+        new makeError({ message: "비밀번호가 일치하지 않습니다.", code: 400 })
+      ),
     });
     try {
       await check.validateAsync(req.body);
