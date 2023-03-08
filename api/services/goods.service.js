@@ -105,6 +105,7 @@ class GoodsService {
         code: 401,
       });
     }
+
     await this.goodsRepository.deleteGoods(goodsId);
     return;
   };
