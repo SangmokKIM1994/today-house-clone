@@ -10,7 +10,6 @@ class CommentsRepository {
       comment,
       nickName,
     });
-    console.log(post.goodsId);
     if (post) {
       await Goods.increment(
         { review: +1 },
