@@ -36,11 +36,11 @@ module.exports = {
       },
       freeDilivery: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        allowNull: false,
       },
       specialPrice: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        allowNull: false,
       },
       option: {
         type: Sequelize.STRING,

@@ -35,13 +35,14 @@ class GoodsRepository {
         "title",
         "content",
         "src",
+        "price",
         "review",
         "star",
         "freeDilivery",
         "specialPrice",
         "percentSale",
       ],
-      order: [["content", "DESC"]],
+      order: [["review", "DESC"]],
       raw: true,
     });
 
