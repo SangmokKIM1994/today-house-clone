@@ -11,14 +11,12 @@ const PORT = process.env.PORT;
 
 app.use(
   cors({
-    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+    allowedOrigins: ["15.165.18.86:3000/api"],
   })
-  //모든주소에서 서버로 요청을 보낼수있다. 현재 쓰고있는서버만 열게 바꾸기
-  //cors origin option
 );
 
 app.use(express.json());
-app.use(cookieparser()); //쓸 이유가 없어보인다. cookie를 다루는 곳이 없다.
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", router);

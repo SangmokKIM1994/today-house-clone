@@ -46,8 +46,8 @@ class GoodsService {
     return goodsData;
   };
 
-  getGoods = async (userId, goodsId) => {
-    const goodsData = await this.goodsRepository.getGoods(userId, goodsId);
+  getGoods = async (goodsId) => {
+    const goodsData = await this.goodsRepository.getGoods(goodsId);
     // const likeStatus = await this.goodsRepository
     if (!goodsData) {
       throw new makeError({
@@ -61,11 +61,13 @@ class GoodsService {
   editGoods = async (
     userId,
     goodsId,
-    name,
+    title,
     content,
     price,
-    category,
-    option
+    option,
+    freeDilivery,
+    specialPrice,
+    percentSale
   ) => {
     const goodsData = await this.goodsRepository.getGoods(goodsId);
     if (!goodsData) {
@@ -82,11 +84,13 @@ class GoodsService {
     }
     await this.goodsRepository.editGoods(
       goodsId,
-      name,
+      title,
       content,
       price,
-      category,
-      option
+      option,
+      freeDilivery,
+      specialPrice,
+      percentSale
     );
     return;
   };
