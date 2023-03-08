@@ -60,12 +60,10 @@ module.exports = (sequelize, DataTypes) => {
       freeDilivery: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false,
       },
       specialPrice: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false,
       },
       option: {
         type: DataTypes.STRING,
