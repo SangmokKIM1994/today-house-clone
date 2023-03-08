@@ -62,9 +62,26 @@ class GoodsRepository {
     return goodsData;
   };
 
-  editGoods = async (goodsId, name, content, price, category, option) => {
+  editGoods = async (
+    goodsId,
+    title,
+    content,
+    price,
+    option,
+    freeDilivery,
+    specialPrice,
+    percentSale
+  ) => {
     await Goods.update(
-      { name, content, price, category, option },
+      {
+        title,
+        content,
+        price,
+        option,
+        freeDilivery,
+        specialPrice,
+        percentSale,
+      },
       { where: { goodsId } }
     );
     return;

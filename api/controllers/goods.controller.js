@@ -15,41 +15,23 @@ class GoodsController {
       percentSale,
     } = req.body;
     try {
+      let fileUrl;
       if (req.files) {
-        const fileUrl = [];
         for (let i = 0; i < req.files.length; i++) {
           fileUrl.push(req.files[i].location);
         }
-        await this.goodsService.createGoods(
-          userId,
-          title,
-          content,
-          price,
-          option,
-          freeDilivery,
-          specialPrice,
-          percentSale,
-          fileUrl
-        );
-      } else {
-        await this.goodsService.createGoods(
-          userId,
-          title,
-          content,
-          price,
-          option,
-          freeDilivery,
-          specialPrice,
-          percentSale
-        ); //코드를 줄일수 있다.
-        //let fileUrl;
-
-        // if(req.files){
-        // fileUrl = []
-        // 반복문
-        // }
       }
-
+      await this.goodsService.createGoods(
+        userId,
+        title,
+        content,
+        price,
+        option,
+        freeDilivery,
+        specialPrice,
+        percentSale,
+        fileUrl
+      );
       res.status(201).json({ message: "게시글이 생성되었습니다." });
     } catch (error) {
       next(error);
@@ -67,14 +49,9 @@ class GoodsController {
   };
 
   getGoods = async (req, res, next) => {
-    if (!res.locals.user) {
-      res.locals.user = { userId: 0 };
-    }
-    const { userId } = res.locals.user;
-    //userId 에 언디파인
     const { goodsId } = req.params;
     try {
-      const goodsData = await this.goodsService.getGoods(userId, goodsId);
+      const goodsData = await this.goodsService.getGoods(goodsId);
       res.status(200).json({ data: goodsData });
     } catch (error) {
       next(error);
