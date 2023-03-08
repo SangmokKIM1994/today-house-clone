@@ -41,7 +41,13 @@ class GoodsController {
           freeDilivery,
           specialPrice,
           percentSale
-        );
+        ); //코드를 줄일수 있다.
+        //let fileUrl;
+
+        // if(req.files){
+        // fileUrl = []
+        // 반복문
+        // }
       }
 
       res.status(201).json({ message: "게시글이 생성되었습니다." });
@@ -65,6 +71,7 @@ class GoodsController {
       res.locals.user = { userId: 0 };
     }
     const { userId } = res.locals.user;
+    //userId 에 언디파인
     const { goodsId } = req.params;
     try {
       const goodsData = await this.goodsService.getGoods(userId, goodsId);

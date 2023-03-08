@@ -1,10 +1,8 @@
 const GoodsRepository = require("../repositories/goods.repository");
-// const LikesRepository = require("../repositories/")
 const { makeError } = require("../error");
 
 class GoodsService {
   goodsRepository = new GoodsRepository();
-  // likesRepository = new LikesRepository()
 
   createGoods = async (
     userId,
@@ -38,27 +36,14 @@ class GoodsService {
   };
 
   getAllGoods = async (group, click) => {
-    const goodsData = await this.goodsRepository.getAllGoods();
+    const goodsData = await this.goodsRepository.getAllGoods(group, click);
     if (!goodsData) {
       throw new makeError({
         message: "게시글 조회를 실패했습니다.",
         code: 404,
       });
     }
-    if (!group || !click) {
-      return goodsData;
-    }
-    const end = group * click - 1;
-    const remain = goodsData.length % end;
-
-    if (goodsData.length < group) {
-      return goodsData;
-    }
-    if (remain !== 0) {
-      return goodsData.slice(0, end + remain);
-    } else {
-      return goodsData.slice(0, end);
-    }
+    return goodsData;
   };
 
   getGoods = async (userId, goodsId) => {

@@ -13,10 +13,12 @@ app.use(
   cors({
     methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
   })
+  //모든주소에서 서버로 요청을 보낼수있다. 현재 쓰고있는서버만 열게 바꾸기
+  //cors origin option
 );
 
 app.use(express.json());
-app.use(cookieparser());
+app.use(cookieparser()); //쓸 이유가 없어보인다. cookie를 다루는 곳이 없다.
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", router);

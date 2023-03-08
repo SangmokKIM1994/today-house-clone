@@ -1,4 +1,5 @@
 const { Users, Comments, Goods, Likes, sequelize } = require("../../db/models");
+const { Op } = require("sequelize");
 
 class GoodsRepository {
   createGoods = async (
@@ -12,7 +13,6 @@ class GoodsRepository {
     percentSale,
     fileUrl
   ) => {
-    console.log(typeof fileUrl);
     const createGoodsData = await Goods.create({
       userId,
       title,
@@ -28,8 +28,11 @@ class GoodsRepository {
     return createGoodsData;
   };
 
-  getAllGoods = async () => {
+  getAllGoods = async (group, click) => {
+    const limit = group * click;
+    const goodsCount = await Goods.max("goodsId");
     const goodsData = await Goods.findAll({
+      where: { goodsId: { [Op.lte]: goodsCount } },
       attributes: [
         "goodsId",
         "title",
@@ -43,6 +46,7 @@ class GoodsRepository {
         "percentSale",
       ],
       order: [["review", "DESC"]],
+      limit: limit,
       raw: true,
     });
 
@@ -52,20 +56,6 @@ class GoodsRepository {
   getGoods = async (userId, goodsId) => {
     const goodsData = await Goods.findOne({
       where: { goodsId },
-      // attributes: [
-      //   "goodsId",
-      //   "userId",
-      //   "title",
-      //   "content",
-      //   "price",
-      //   "option",
-      //   "freeDilivery",
-      //   "specialPrice",
-      //   "review",
-      //   "src",
-      //   "createdAt",
-      //   "updatedAt",
-      // ],
       include: [{ model: Users, attributes: ["nickName"] }],
       raw: true,
     });
