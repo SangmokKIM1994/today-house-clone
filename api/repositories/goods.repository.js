@@ -53,7 +53,7 @@ class GoodsRepository {
     return goodsData;
   };
 
-  getGoods = async (userId, goodsId) => {
+  getGoods = async (goodsId) => {
     const goodsData = await Goods.findOne({
       where: { goodsId },
       include: [{ model: Users, attributes: ["nickName"] }],
