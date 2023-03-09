@@ -1,4 +1,3 @@
-const cookieparser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const express = require("express");
@@ -11,12 +10,12 @@ const PORT = process.env.PORT;
 
 app.use(
   cors({
-    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+    allowedOrigins: [process.env.CORS_ORIGIN_OPTION],
   })
 );
 
 app.use(express.json());
-app.use(cookieparser());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", router);

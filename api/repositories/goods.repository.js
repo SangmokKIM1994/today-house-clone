@@ -1,34 +1,52 @@
 const { Users, Comments, Goods, Likes, sequelize } = require("../../db/models");
+const { Op } = require("sequelize");
 
 class GoodsRepository {
   createGoods = async (
     userId,
-    name,
+    title,
     content,
     price,
-    category,
     option,
-    fileName,
+    freeDilivery,
+    specialPrice,
+    percentSale,
     fileUrl
   ) => {
     const createGoodsData = await Goods.create({
       userId,
-      name,
+      title,
       content,
       price,
-      category,
       option,
-      fileName,
-      fileUrl,
+      freeDilivery,
+      specialPrice,
+      percentSale,
+      src: fileUrl,
     });
 
     return createGoodsData;
   };
 
-  getAllGoods = async () => {
+  getAllGoods = async (group, click) => {
+    const limit = group * click;
+    const goodsCount = await Goods.max("goodsId");
     const goodsData = await Goods.findAll({
-      attributes: ["goodsId", "name", "likesCount", "commentsCount"],
-      order: [["likesCount", "DESC"]],
+      where: { goodsId: { [Op.lte]: goodsCount } },
+      attributes: [
+        "goodsId",
+        "title",
+        "content",
+        "src",
+        "price",
+        "review",
+        "star",
+        "freeDilivery",
+        "specialPrice",
+        "percentSale",
+      ],
+      order: [["review", "DESC"]],
+      limit: limit,
       raw: true,
     });
 
@@ -38,29 +56,32 @@ class GoodsRepository {
   getGoods = async (goodsId) => {
     const goodsData = await Goods.findOne({
       where: { goodsId },
-      attributes: [
-        "goodsId",
-        "userId",
-        "name",
-        "content",
-        "price",
-        "option",
-        "category",
-        "likesCount",
-        "commentsCount",
-        "createdAt",
-        "updatedAt",
-      ],
       include: [{ model: Users, attributes: ["nickName"] }],
       raw: true,
     });
-
     return goodsData;
   };
 
-  editGoods = async (goodsId, name, content, price, category, option) => {
+  editGoods = async (
+    goodsId,
+    title,
+    content,
+    price,
+    option,
+    freeDilivery,
+    specialPrice,
+    percentSale
+  ) => {
     await Goods.update(
-      { name, content, price, category, option },
+      {
+        title,
+        content,
+        price,
+        option,
+        freeDilivery,
+        specialPrice,
+        percentSale,
+      },
       { where: { goodsId } }
     );
     return;

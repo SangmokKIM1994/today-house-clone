@@ -1,74 +1,65 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Users extends Model {
+  class Carts extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      this.belongsTo(models.Users, {
+        sourceKey: "userId",
+        foreignKey: "userId",
+      });
+      this.belongsTo(models.Goods, {
+        sourceKey: "goodsId",
+        foreignKey: "goodsId",
+      });
       // define association here
-      this.hasMany(models.Goods, {
-        sourceKey: "userId",
-        foreignKey: "userId",
-      });
-
-      this.hasMany(models.Comments, {
-        sourceKey: "userId",
-        foreignKey: "userId",
-      });
-      this.hasMany(models.Likes, {
-        sourceKey: "userId",
-        foreignKey: "userId",
-      });
-      this.hasMany(models.Carts, {
-        sourceKey: "userId",
-        foreignKey: "userId",
-      });
     }
   }
-  Users.init(
+  Carts.init(
     {
-      userId: {
+      cartid: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      email: {
-        type: DataTypes.STRING,
-        unique: true,
+      userId: {
         allowNull: false,
+        type: DataTypes.INTEGER,
       },
-      nickName: {
-        type: DataTypes.STRING,
-        unique: true,
+      goodsId: {
         allowNull: false,
+        type: DataTypes.INTEGER,
       },
-      password: {
-        type: DataTypes.STRING,
+      totalPrice: {
         allowNull: false,
+        type: DataTypes.INTEGER,
       },
-      cart: {
+      option: {
+        allowNull: false,
         type: DataTypes.STRING,
-        allowNull: true,
+      },
+      count: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
       },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
       },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
       },
     },
     {
       sequelize,
-      modelName: "Users",
+      modelName: "Carts",
     }
   );
-  return Users;
+  return Carts;
 };

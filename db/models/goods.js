@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: "goodsId",
         foreignKey: "goodsId",
       });
+      this.hasMany(models.Carts, {
+        sourceKey: "goodsId",
+        foreignKey: "goodsId",
+      });
     }
   }
   Goods.init(
@@ -37,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      name: {
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -45,35 +49,37 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      fileName: {
-        type: DataTypes.STRING,
+      src: {
+        type: DataTypes.JSON,
         allowNull: true,
       },
       price: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      category: {
-        type: DataTypes.STRING,
+      freeDilivery: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      specialPrice: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       option: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      fileUrl: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      commentsCount: {
+      review: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        // defaulteValue: 0
       },
-      likesCount: {
+      star: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        // defaulteValue: 0
+      },
+      percentSale: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

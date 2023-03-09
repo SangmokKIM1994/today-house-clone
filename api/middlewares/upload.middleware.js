@@ -33,6 +33,6 @@ const upload = multer({
     }
     cb(null, true);
   },
-}).single("image");
+}).array("image", 10);
 
 module.exports = upload;

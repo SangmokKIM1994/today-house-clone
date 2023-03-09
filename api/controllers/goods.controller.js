@@ -5,33 +5,33 @@ class GoodsController {
 
   createGoods = async (req, res, next) => {
     const { userId } = res.locals.user;
-    const { name, content, price, category, option } = req.body;
-
+    const {
+      title,
+      content,
+      price,
+      option,
+      freeDilivery,
+      specialPrice,
+      percentSale,
+    } = req.body;
     try {
-      if (req.file) {
-        const filiName = req.file.key;
-        const fileUrl = req.file.location;
-        await this.goodsService.createGoods(
-          userId,
-          name,
-          content,
-          price,
-          category,
-          option,
-          filiName,
-          fileUrl
-        );
-      } else {
-        await this.goodsService.createGoods(
-          userId,
-          name,
-          content,
-          price,
-          category,
-          option
-        );
+      let fileUrl;
+      if (req.files) {
+        for (let i = 0; i < req.files.length; i++) {
+          fileUrl.push(req.files[i].location);
+        }
       }
-
+      await this.goodsService.createGoods(
+        userId,
+        title,
+        content,
+        price,
+        option,
+        freeDilivery,
+        specialPrice,
+        percentSale,
+        fileUrl
+      );
       res.status(201).json({ message: "게시글이 생성되었습니다." });
     } catch (error) {
       next(error);
@@ -39,8 +39,9 @@ class GoodsController {
   };
 
   getAllGoods = async (req, res, next) => {
+    const { group, click } = req.query;
     try {
-      const goodsData = await this.goodsService.getAllGoods();
+      const goodsData = await this.goodsService.getAllGoods(group, click);
       res.status(200).json({ data: goodsData });
     } catch (error) {
       next(error);
@@ -48,13 +49,9 @@ class GoodsController {
   };
 
   getGoods = async (req, res, next) => {
-    if (!res.locals.user) {
-      res.locals.user = { userId: 0 };
-    }
-    const { userId } = res.locals.user;
     const { goodsId } = req.params;
     try {
-      const goodsData = await this.goodsService.getGoods(userId, goodsId);
+      const goodsData = await this.goodsService.getGoods(goodsId);
       res.status(200).json({ data: goodsData });
     } catch (error) {
       next(error);
@@ -64,16 +61,26 @@ class GoodsController {
   editGoods = async (req, res, next) => {
     const { userId } = res.locals.user;
     const { goodsId } = req.params;
-    const { name, content, price, category, option } = req.body;
+    const {
+      title,
+      content,
+      price,
+      option,
+      freeDilivery,
+      specialPrice,
+      percentSale,
+    } = req.body;
     try {
       await this.goodsService.editGoods(
         userId,
         goodsId,
-        name,
+        title,
         content,
         price,
-        category,
-        option
+        option,
+        freeDilivery,
+        specialPrice,
+        percentSale
       );
       res.status(200).json({ message: "게시글 수정이 완료되었습니다." });
     } catch (error) {

@@ -1,28 +1,30 @@
 const GoodsRepository = require("../repositories/goods.repository");
-// const LikesRepository = require("../repositories/")
 const { makeError } = require("../error");
 
 class GoodsService {
   goodsRepository = new GoodsRepository();
-  // likesRepository = new LikesRepository()
 
   createGoods = async (
     userId,
-    name,
+    title,
     content,
     price,
-    category,
     option,
-    ...file
+    freeDilivery,
+    specialPrice,
+    percentSale,
+    fileUrl
   ) => {
     const createGoodsData = await this.goodsRepository.createGoods(
       userId,
-      name,
+      title,
       content,
       price,
-      category,
       option,
-      ...file
+      freeDilivery,
+      specialPrice,
+      percentSale,
+      fileUrl
     );
     if (!createGoodsData) {
       throw new makeError({
@@ -33,8 +35,8 @@ class GoodsService {
     return createGoodsData;
   };
 
-  getAllGoods = async () => {
-    const goodsData = await this.goodsRepository.getAllGoods();
+  getAllGoods = async (group, click) => {
+    const goodsData = await this.goodsRepository.getAllGoods(group, click);
     if (!goodsData) {
       throw new makeError({
         message: "게시글 조회를 실패했습니다.",
@@ -44,8 +46,8 @@ class GoodsService {
     return goodsData;
   };
 
-  getGoods = async (userId, goodsId) => {
-    const goodsData = await this.goodsRepository.getGoods(userId, goodsId);
+  getGoods = async (goodsId) => {
+    const goodsData = await this.goodsRepository.getGoods(goodsId);
     // const likeStatus = await this.goodsRepository
     if (!goodsData) {
       throw new makeError({
@@ -59,11 +61,13 @@ class GoodsService {
   editGoods = async (
     userId,
     goodsId,
-    name,
+    title,
     content,
     price,
-    category,
-    option
+    option,
+    freeDilivery,
+    specialPrice,
+    percentSale
   ) => {
     const goodsData = await this.goodsRepository.getGoods(goodsId);
     if (!goodsData) {
@@ -80,11 +84,13 @@ class GoodsService {
     }
     await this.goodsRepository.editGoods(
       goodsId,
-      name,
+      title,
       content,
       price,
-      category,
-      option
+      option,
+      freeDilivery,
+      specialPrice,
+      percentSale
     );
     return;
   };
@@ -103,6 +109,7 @@ class GoodsService {
         code: 401,
       });
     }
+
     await this.goodsRepository.deleteGoods(goodsId);
     return;
   };
