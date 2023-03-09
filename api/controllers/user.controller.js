@@ -34,12 +34,9 @@ class UsersController {
 
       const token = jwt.sign({ userId: user.email }, KEY, { expiresIn: "1h" });
 
-      res.cookie("authorization", `Bearer ${token}`, {
-        expires: expires,
-      });
       res.status(200).json({
         message: "로그인에 성공하셨습니다.",
-        token: `${token}`, //왜 body값으로 한번 더 주는가
+        token: `${token}`,
       });
     } catch (error) {
       next(error);

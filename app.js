@@ -1,4 +1,3 @@
-const cookieparser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const express = require("express");
@@ -12,7 +11,7 @@ const PORT = process.env.PORT;
 app.use(
   cors({
     methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
-    allowedOrigins: ["15.165.18.86:3000/api"],
+    allowedOrigins: [process.env.CORS_ORIGIN_OPTION],
   })
 );
 
