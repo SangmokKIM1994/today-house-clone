@@ -15,7 +15,7 @@ class GoodsController {
       percentSale,
     } = req.body;
     try {
-      let fileUrl;
+      let fileUrl = [];
       if (req.files) {
         for (let i = 0; i < req.files.length; i++) {
           fileUrl.push(req.files[i].location);
