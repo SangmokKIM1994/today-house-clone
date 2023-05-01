@@ -29,10 +29,7 @@ class GoodsRepository {
   };
 
   getAllGoods = async (group, click) => {
-    const limit = group * click;
-    const goodsCount = await Goods.max("goodsId");
     const goodsData = await Goods.findAll({
-      where: { goodsId: { [Op.lte]: goodsCount } },
       attributes: [
         "goodsId",
         "title",
@@ -46,7 +43,8 @@ class GoodsRepository {
         "percentSale",
       ],
       order: [["review", "DESC"]],
-      limit: limit,
+      limit: Number(group),
+      offset: (click - 1) * Number(group),
       raw: true,
     });
 

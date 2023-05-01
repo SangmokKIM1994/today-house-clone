@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 
 app.use(
   cors({
-    methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+    methods: ["GET", "POST", "UPDATE", "DELETE", "PUT", "PATCH"],
     allowedOrigins: [process.env.CORS_ORIGIN_OPTION],
   })
 );
